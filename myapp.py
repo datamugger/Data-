@@ -38,7 +38,7 @@ if(file != None):
     st.subheader(':rainbow[Basic information of the dataset]', divider='rainbow')
     
     # we want to show the information in tabs format
-    tab1, tab2, tab3, tab4 = st.tabs(4)
+    tab1, tab2, tab3, tab4 = st.tabs(['Summary', 'Top and Bottom Rows', 'Data Type', 'Columns'])
 
     with tab1:
         st.write(f'There are {data.shape[0]} rows and {data.shape[1]} columns in the dataset.')
@@ -47,15 +47,15 @@ if(file != None):
 
     with tab2:
         st.subheader(':gray[Top Rows]')
-        toprows = st.slider('Number of rows you want', 1, data.shape[0], key='topslider')
+        toprows = st.slider('Number of rows you want', 3, data.shape[0], key='topslider')
         st.dataframe(data.head(toprows))
 
         st.subheader(':gray[Bottom Rows]')
-        bottomrows = st.slider('Number of rows you want', 1, data.shape[0], key='bottomslider')
+        bottomrows = st.slider('Number of rows you want', 3, data.shape[0], key='bottomslider')
         st.dataframe(data.tail(bottomrows))
 
     with tab3:
-        st.subheader(':gray[Data types of column]')
+        st.subheader(':gray[Data types of Column]')
         st.dataframe(data.dtypes.rename_axis('Columns').reset_index(name='Data type').set_index('Columns'))
 
     with tab4:
@@ -87,8 +87,8 @@ if(file != None):
             st.plotly_chart(fig)  
 
             # Line Chart
-            fig = px.line(data_frame=result, x=column, y='count', text='count', template='plotly_white')
-            st.plotly_chart(fig)
+            #fig = px.line(data_frame=result, x=column, y='count', text='count', template='plotly_white')
+            #st.plotly_chart(fig)
 
             # Pie-Chart
             fig=px.pie(data_frame=result, names=column, values='count')
